@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+
+  service:
+    image: ijavid/invescrap:latest
+    ports:
+      - "8300:3000"
+    depends_on:
+      - mongo
+    links:
+      - "mongo:mongo"
+    environment:
+      - MONGODB=mongodb://mongo:27017/invescrap
+      - NODE_ENV=production
+      - VIRTUAL_HOST=crap.ijavid.eu
+      - VIRTUAL_PORT=8300
+
+  mongo:
+    image: mongo
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
+    driver_opts:
+      type: none
+      device: /share/Container/invescrap/data
+      o: bind
