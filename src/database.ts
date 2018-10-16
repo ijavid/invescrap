@@ -3,7 +3,7 @@ import Configuration from "./configuration.interface";
 
 export function setupDatabase(options: Configuration) {
     mongoose.Promise = Promise;
-    mongoose.connect(options.mongoUrl)
+    return mongoose.connect(options.mongoUrl)
         .then(() => {
             console.log('Database connection successful', options.mongoUrl);
         })
