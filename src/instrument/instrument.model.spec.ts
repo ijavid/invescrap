@@ -9,16 +9,16 @@ let instrument = new InstrumentObject(id, id, 'isin', 'title');
 console.log(instrument);
 
 
-InstrumentObject.requestLiveData(id).then((data) => {
+InstrumentObject.requestLiveData(id).then((data: any) => {
      console.log(data.isin);
      console.log(data.series);
      let result = InstrumentObject.parseSeries(data.series);
          console.log(result);
 });
 
-InstrumentObject.create(id).then((ins) => {
+InstrumentObject.create(id).then((ins: any) => {
     // console.log(ins);
-    ins.update().then((ins) => {
+    ins.update().then((ins: any) => {
         console.log(ins);
     })
 });
