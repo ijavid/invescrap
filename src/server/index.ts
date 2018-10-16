@@ -6,6 +6,7 @@ import { resolve } from 'path';
 import webpack, {Stats} from 'webpack';
 import webpackConfig from "./../webpack.config";
 import * as bodyParser from "body-parser";
+import addPosition from "./add-position.handler";
 
 interface RouteDef {
     method: string,
@@ -23,6 +24,11 @@ const routes: Array<RouteDef> = [
         method: 'post',
         path: '/instrument',
         handler: addInstrument
+    },
+    {
+        method: 'post',
+        path: '/position',
+        handler: addPosition
     }
 ];
 
@@ -83,7 +89,7 @@ export default class Server {
                     console.error(err);
                 } else {
                     console.log(`Webpack compiled Successfully`);
-                    console.log((stats.endTime - stats.startTime) + 'ms');
+                    // console.log((stats.endTime - stats.startTime) + 'ms');
                 }
             })
         }

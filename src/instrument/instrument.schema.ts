@@ -1,29 +1,17 @@
-import * as mongoose from "mongoose";
-import {Instrument, InstrumentDocument} from "./instrument.interface";
+import mongoose from "mongoose";
+import {Instrument} from "./instrument.interface";
 
-export interface InstrumentData {
-    date: string;
-    value: number;
-    i: number;
-}
-
-export interface Instrument {
-    id: string,
-    instrument_id: string,
-    isin: string,
-    title: string
-    series: Array<InstrumentData>;
-}
-
+export interface InstrumentDocument extends Instrument, mongoose.Document { }
 
 const InstrumentSchema = new mongoose.Schema({
-    code: String,
-    data: String,
-    i: Number,
-    rates: {
-        code: String,
-        value: Number
-    }
+    instrument_id: String,
+    isin: String,
+    title: String,
+    series: [{
+        date: String,
+        value: Number,
+        i: Number
+    }]
 });
 
 export const InstrumentModel = mongoose.model<InstrumentDocument>('Instrument', InstrumentSchema);

@@ -12,4 +12,16 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:3000/instrument?id=12345
+Content-Type: application/json
+
+{ "instrument_id": "2582" }
+
+###
+
+POST http://localhost:3000/instrument?id=12345
+Content-Type: application/json
+
+{ "instrument_id": "112" }
+
 ###

@@ -1,4 +1,4 @@
-const { getCurrentExchangeRates } = require('./exchange.function');
+const { getCurrentExchangeRates } = require('./exchange');
 
 getCurrentExchangeRates().then((result) => {
     console.log(result);

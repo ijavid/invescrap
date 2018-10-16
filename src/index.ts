@@ -1,6 +1,8 @@
 import * as dotenv from "dotenv";
 import Configuration from "./configuration.interface";
 import Server from "./server";
+import {setupDatabase} from "./database";
+import startWorker from "./worker";
 
 dotenv.config();
 const options: Configuration = {
@@ -11,6 +13,11 @@ const options: Configuration = {
     webpack: process.env.WEBPACK === 'true'
 };
 
+setupDatabase(options);
+
 const server = new Server(options);
 server.start();
+
+// startWorker();
+
 

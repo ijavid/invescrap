@@ -1,15 +1,13 @@
-import {default as mongoose, MongooseDocumentOptionals} from "mongoose";
+import {MongooseDocumentOptionals} from "mongoose";
 
 export interface CurrencyExchange extends MongooseDocumentOptionals {
     code: string;
-    data: string;
+    date: string;
     i: number;
-    rates: CurrencyExchangeRate;
+    rates: Array<CurrencyExchangeRate>;
 }
 
 export interface CurrencyExchangeRate  {
     code: string;
     value: number;
 }
-
-export interface CurrencyExchangeDocument extends CurrencyExchange, mongoose.Document { }

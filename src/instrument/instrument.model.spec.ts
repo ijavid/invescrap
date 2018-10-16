@@ -1,4 +1,4 @@
-let { InstrumentObject } = require("./instrument.object");
+let { InstrumentObject } = require("./instrument");
 
 let data = '[[Date.UTC(2008,9,15,20,00,00),4524.98],[Date.UTC(2008,9,16,20,00,00),4557.38]]';
 let result = InstrumentObject.parseSeries(data);
