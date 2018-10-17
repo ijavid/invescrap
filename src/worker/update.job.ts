@@ -15,6 +15,8 @@ export default function updateJob() {
         return Promise.all(promises);
     }).then(() => {
         console.log(`Update instrument DONE`);
+    }).catch((err) => {
+        console.error(err);
     });
 
     const exchangeJob = getCurrentExchangeRates().then((result) => {
@@ -29,9 +31,13 @@ export default function updateJob() {
                 console.log(`Exchange rates up to date`);
             }
         });
+    }).catch((err) => {
+        console.error(err);
     });
 
     return Promise.all([instrumentJob, exchangeJob]).then(() => {
         console.log('Update job DONE');
+    }).catch((err) => {
+        console.error(err);
     });
 }
