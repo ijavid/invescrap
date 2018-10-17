@@ -18,12 +18,3 @@ services:
 
   mongo:
     image: mongo
-    volumes:
-      - mongo_data:/data/db
-
-volumes:
-  mongo_data:
-    driver_opts:
-      type: none
-      device: /share/Container/invescrap/data
-      o: bind

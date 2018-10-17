@@ -1,0 +1,69 @@
+# ESPA Stock Techno HUF R01
+
+POST https://crap.ijavid.eu/position
+Content-Type: application/json
+
+{
+    "instrument_id": "2592",
+    "value": 5.614,
+    "date": "2017-01-16",
+    "cost": 1500,
+    "currency": "HUF"
+ }
+
+###
+
+POST http://crap.ijavid.eu:8300/position
+Content-Type: application/json
+
+ {
+     "instrument_id": "2592",
+     "value": 20.992,
+     "date": "2017-03-03",
+     "cost": 6000,
+     "currency": "HUF"
+  }
+
+###
+
+
+POST http://crap.ijavid.eu:8300/position
+Content-Type: application/json
+
+   {
+       "instrument_id": "2592",
+       "value": 15.126,
+       "date": "2017-05-11",
+       "cost": 4500,
+       "currency": "HUF"
+    }
+
+###
+
+POST http://crap.ijavid.eu:8300/position
+Content-Type: application/json
+
+   {
+       "instrument_id": "2582",
+       "value": 4.865,
+       "date": "2017-03-03",
+       "cost": 4.5,
+       "currency": "EUR"
+    }
+
+
+
+###
+
+POST http://crap.ijavid.eu:8300/position
+Content-Type: application/json
+
+   {
+       "instrument_id": "112",
+       "value": 85729,
+       "date": "2017-01-13",
+       "cost": 500,
+       "currency": "HUF"
+    }
+
+###
