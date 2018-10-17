@@ -5,6 +5,7 @@ const entry = resolve(__dirname, 'public', 'index.js');
 console.log(entry);
 
 const webpackConfig: Configuration = {
+    mode: "development",
     entry,
     output: {
         path: resolve(__dirname, '../public'),
@@ -14,3 +15,4 @@ const webpackConfig: Configuration = {
 
 export default webpackConfig;
 
+// https://www.typescriptlang.org/docs/handbook/react-&-webpack.html

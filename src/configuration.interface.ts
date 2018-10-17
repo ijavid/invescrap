@@ -1,4 +1,3 @@
-
 export default interface Configuration {
     port: string|number,
     mongoUrl: string,

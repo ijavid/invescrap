@@ -13,7 +13,7 @@ services:
     environment:
       - MONGODB=mongodb://mongo:27017/invescrap
       - NODE_ENV=production
-      - VIRTUAL_HOST=crap.ijavid.eu
+      - VIRTUAL_HOST=crap:carp@crap.ijavid.eu
       - VIRTUAL_PORT=8300
 
   mongo:

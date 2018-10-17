@@ -15,6 +15,9 @@ export interface PerformanceData extends Position {
     pldb: number; // PL / db
     grspl: number; // pldb * db
 
+    perf: string;
+    netperf: string;
+
     title: string;
 }
 
@@ -45,6 +48,9 @@ export default function getData(): Promise<Array<PerformanceData>> {
             pos.grspl = pos.pldb * pos.value;
             pos.pl = pos.currentValue - pos.startValue;
             pos.netpl = pos.pl - pos.cost;
+
+            pos.perf = (pos.pl / pos.startValue * 100).toFixed(2) + '%';
+            pos.netperf = (pos.netpl / pos.startValue * 100).toFixed(2) + '%';
 
             return <PerformanceData> pos;
         });

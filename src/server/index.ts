@@ -1,36 +1,10 @@
 import Configuration from "../configuration.interface";
 import express, {Express, Handler, NextFunction, Request, Response} from 'express';
-import getData from "./get-data.handler";
-import addInstrument from "./add-instrument.handler";
 import { resolve } from 'path';
 import webpack, {Stats} from 'webpack';
 import webpackConfig from "./../webpack.config";
 import * as bodyParser from "body-parser";
-import addPosition from "./add-position.handler";
-
-interface RouteDef {
-    method: string,
-    path: string,
-    handler: (req?: Request, res?: Response, done?: NextFunction) => Promise<any>
-}
-
-const routes: Array<RouteDef> = [
-    {
-        method: 'get',
-        path: '/data',
-        handler: getData
-    },
-    {
-        method: 'post',
-        path: '/instrument',
-        handler: addInstrument
-    },
-    {
-        method: 'post',
-        path: '/position',
-        handler: addPosition
-    }
-];
+import {routes} from "../routes";
 
 export default class Server {
 
@@ -38,11 +12,9 @@ export default class Server {
 
     constructor(private config: Configuration) {
         this.app = express();
-
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
-
-        this.registerStaticRoute();
+        this.registerStaticRoute(config.webpack);
         this.registerRoutes();
     }
 
@@ -77,7 +49,7 @@ export default class Server {
         }
     };
 
-    private registerStaticRoute(compileWebpack = true) {
+    private registerStaticRoute(compileWebpack = false) {
         const path = resolve(__dirname, '../../public');
         console.log(`Registering static server on '${path}'`);
         this.app.use(express.static(path));

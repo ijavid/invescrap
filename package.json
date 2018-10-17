@@ -1,13 +1,14 @@
 {
   "name": "invescrap",
   "version": "1.0.0",
-  "description": "",
+  "description": "InvesCrap - Investment Scrapper",
+  "repository": "https://github.com/ijavid/invescrap",
   "scripts": {
     "build": "tsc",
     "webpack": "webpack --config src/webpack.config.js",
     "run": "src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docker": "tsc --outDir ./dist && webpack ./dist/public/index.js -o ./public/webpack.bundle.js"
+    "build-docker": "tsc --outDir ./dist && webpack ./dist/public/index.js -o ./public/webpack.bundle.js"
   },
   "author": "",
   "license": "ISC",
@@ -23,7 +24,8 @@
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5",
     "soap": "latest",
-    "webpack": "latest"
+    "react": "latest",
+    "react-dom": "latest"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.24",
@@ -32,9 +34,12 @@
     "@types/lodash": "^4.14.117",
     "@types/mongoose": "^5.2.19",
     "@types/node-cron": "^2.0.0",
+    "@types/react": "^16.4.18",
+    "@types/react-dom": "^16.0.9",
     "@types/request-promise-native": "^1.0.15",
     "@types/webpack": "^4.4.17",
     "typescript": "^3.1.3",
+    "webpack": "latest",
     "webpack-cli": "^3.1.2"
   }
 }
