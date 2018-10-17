@@ -25,7 +25,8 @@
     "request-promise-native": "^1.0.5",
     "soap": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "easy-soap-request": "latest"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.24",
