@@ -1,9 +1,10 @@
-import {getCurrentExchangeRates, getCurrentExchangeRates2} from "./exchange";
+import {
+    fetchCurrentExchangeRates,
+    parseCurrentExchangeRatesResponse
+} from "./exchange";
 
-getCurrentExchangeRates2().then((result: any) => {
-    console.log(result);
-});
-
-getCurrentExchangeRates().then((result: any) => {
-    console.log(result);
-});
+fetchCurrentExchangeRates()
+    .then(parseCurrentExchangeRatesResponse)
+    .then((result: any) => {
+        console.log(result);
+    });

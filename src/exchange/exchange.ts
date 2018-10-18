@@ -1,26 +1,15 @@
 import * as soap from 'soap';
-import camaro from 'camaro';
-import {CurrencyExchange} from "./exchange.interface";
-import {GetCurrentExchangeRatesRequest} from "./soap-requests";
+import {CurrencyExchange, CurrencyExchangeRate} from "./exchange.interface";
 import * as _ from "lodash";
+import {Parser} from "xml2js";
 
+const parser = new Parser();
 
-const soapRequest = require('easy-soap-request');
-export function getCurrentExchangeRates2(): Promise<CurrencyExchange> {
-    const url = 'http://www.mnb.hu/arfolyamok.asmx?wsdl';
-    const headers = {
-        'user-agent': 'nodejs invescrap',
-        'Content-Type': 'text/xml;charset=UTF-8',
-        'soapAction': "http://www.mnb.hu/webservices/MNBArfolyamServiceSoap/GetCurrentExchangeRates"
-    };
-    return soapRequest(url, headers, GetCurrentExchangeRatesRequest)
-        .then((result: any) => {
-             return _.get(result, 'response.body', '');
-        })
-        .then(parseCurrentExchangeRatesResponse);
+export default function getCurrentExchangeRates(): Promise<CurrencyExchange> {
+    return fetchCurrentExchangeRates().then(parseCurrentExchangeRatesResponse);
 }
 
-export function getCurrentExchangeRates(): Promise<CurrencyExchange> {
+export function fetchCurrentExchangeRates(): Promise<string> {
     const url = 'http://www.mnb.hu/arfolyamok.asmx?wsdl';
     let client: any;
     return new Promise((resolve, reject) => {
@@ -36,29 +25,36 @@ export function getCurrentExchangeRates(): Promise<CurrencyExchange> {
                 // console.log('----');
                 return  response[0].GetCurrentExchangeRatesResult;
             })
-            .then(parseCurrentExchangeRatesResponse)
             .then(resolve)
             .catch(reject)
     })
 }
 
-export function parseCurrentExchangeRatesResponse(xml: string) {
-    const template = {
-
-        code: '#HUF',
-        date: '//Day/@date',
-        rates: ['//Rate', {
-            code: '@curr',
-            unit: 'number(@unit)',
-            val: '.'
-        }]
-    };
-    const result = camaro(xml, template);
-    result.i = Date.parse(result.date);
-    result.rates.forEach((curr: any) => {
-        curr.value = parseFloat(curr.val.replace(',', '.')) / curr.unit;
-        delete curr.val;
-        delete curr.unit;
+export function parseCurrentExchangeRatesResponse(xml: string): Promise<CurrencyExchange> {
+    return new Promise((resolve, reject) => {
+        return parser.parseString(xml, (err: any, result: any) => {
+            if( err) {
+                reject(err);
+            } else {
+                const day = _.get(result, 'MNBCurrentExchangeRates.Day[0]');
+                if (!day) {
+                    reject(result);
+                }
+                const currencyExchange = {
+                    code: "HUF",
+                    date: day.$.date,
+                    i: Date.parse(day.$.date),
+                    rates: day.Rate.map((curr: any) => {
+                        const unit = parseFloat(curr.$.unit);
+                        const value = parseFloat(curr._.replace(',', '.')) / unit;
+                        const code = curr.$.curr;
+                        return <CurrencyExchangeRate> {
+                            code, value
+                        };
+                    })
+                };
+                resolve(currencyExchange);
+            }
+        });
     });
-    return result;
 }

@@ -1,7 +1,7 @@
 import {updateInstrumentData} from "../instrument/instrument";
 import {InstrumentModel} from "../instrument/instrument.schema";
 import {CurrencyExchangeModel} from "../exchange/exchange.schema";
-import {getCurrentExchangeRates} from "../exchange/exchange";
+import getCurrentExchangeRates from "../exchange/exchange";
 
 export default function updateJob() {
 
