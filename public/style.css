@@ -1,0 +1,11 @@
+body {
+    font-family: Arial, serif;
+}
+
+#content {
+
+}
+
+#content > span.loading {
+    font-size: 2em;
+}

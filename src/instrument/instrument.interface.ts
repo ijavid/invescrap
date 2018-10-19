@@ -10,5 +10,5 @@ export interface Instrument  extends MongooseDocumentOptionals {
 export interface InstrumentData {
     date: string;
     value: number;
-    i: number;
+    i?: number;
 }

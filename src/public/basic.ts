@@ -1,27 +1,21 @@
 import $ from 'jquery';
 import * as _ from 'lodash';
+import {Position} from "../position/position.interface";
+import {PerformanceData} from "../routes/position.resource";
 
-// An array, object or any data (eg. from an ajax call)
-let users = ['fred', 'barney', 'pebble', 'wilma', 'betty', 'bambam'];
+let positionsTemplate = _.template($('#positionsTemplate').html());
 
-let person = {
-    name: 'fred',
-    occupation: 'quarry worker',
-    hobbies: 'bowling'
-};
+$.getJSON('api/position/',  {}, (positions: Array<PerformanceData>) => {
+    console.log(positions);
 
-// Set the HTML template
-let userlist = _.template($('#userlist').html());
-let bio = _.template($('#bio').html());
-
-let x = userlist({ users });
+    const { totalValue, totalNetPl } = positions.reduce((total, value: PerformanceData) => {
+        if(value.currency === 'HUF') {
+            total.totalValue += value.currentValue;
+            total.totalNetPl += value.netpl;
+        }
+        return total;
+    }, { totalValue: 0, totalNetPl: 0 });
 
 
-// render the template using hte data
-$('#content').html(userlist({ users }));
-$('#content').after(bio(person));
-
-var compiled = _.template('<% _.forEach(users, function(user) { %><li><%- user %></li><% }); %>');
-const r = compiled({ 'users': ['fred', 'barney'] });
-
-console.log(r);
+    $('#content').html(positionsTemplate({ positions,  totalValue, totalNetPl }));
+});

@@ -14,5 +14,5 @@ setupDatabase(configuration).then(() => {
     worker.start();
 
     // run jobs at startup!
-    // worker.runJobs();
+    worker.runJobs();
 });

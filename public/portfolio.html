@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello</title>
+    <link rel="stylesheet" type="text/css"  href="style.css">
+</head>
+<body>
+<h1>Portfolio</h1>
+
+<div id="content">
+    <span class="loading">Loading...</span>
+</div>
+
+<script type="text/html" id="positionsTemplate">
+    <table>
+        <tbody>
+            <% _.forEach(positions, function(p) { %>
+            <tr>
+                <td><%- p.title %></td>
+                <td><%- p.currentValue.toFixed(2) %> <%- p.currency %></td>
+                <td><%- p.netpl.toFixed(2) %> <%- p.currency %></td>
+                <td><%- p.netperf %></td>
+            </tr>
+            <% }); %>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>Total</td>
+                <td><%- totalValue.toFixed(2) %> HUF</td>
+                <td><%- totalNetPl.toFixed(2) %> HUF</td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+</script>
+
+<script src="basic.bundle.js"></script>
+</body>
+</html>
