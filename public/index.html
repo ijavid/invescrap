@@ -6,7 +6,50 @@
 </head>
 <body>
 <h1>Hello</h1>
+
 <section id="index"></section>
+
+<div id="app">
+    {{ message }}
+</div>
+
+<div id="app-7">
+    <ol>
+        <!--
+          Now we provide each todo-item with the todo object
+          it's representing, so that its content can be dynamic.
+          We also need to provide each component with a "key",
+          which will be explained later.
+        -->
+        <todo-item
+                v-for="item in groceryList"
+                v-bind:todo="item"
+                v-bind:key="item.id">
+        </todo-item>
+    </ol>
+</div>
+
+
+<div id="content"></div>
+
+<script type="text/html" id="userlist">
+    <ul>
+        <% _.forEach(users, function(user) { %>
+        <li><%- user %></li>
+        <% }); %>
+    </ul>
+</script>
+
+<script type="text/html" id="bio">
+    <div>
+        <h1>My name is <%- name %></h1>
+        <p>I like <%- hobbies %> but hate being a <%- occupation %></p>
+    </div>
+</script>
+
 <script src="webpack.bundle.js"></script>
+<script src="index.bundle.js"></script>
+<script src="app.bundle.js"></script>
+<script src="basic.bundle.js"></script>
 </body>
 </html>

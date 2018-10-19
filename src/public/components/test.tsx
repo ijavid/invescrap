@@ -7,7 +7,7 @@ export class Test extends React.Component {
                 <h1>List</h1>
                 <ul>
                     <li>axx</li>
-                    <li>b</li>
+                    <li>bxx</li>
                     <li>c</li>
                 </ul>
             </div>

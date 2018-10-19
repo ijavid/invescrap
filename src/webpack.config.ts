@@ -12,10 +12,14 @@ interface A extends Configuration, OC {
  */
 const webpackConfig: A  = {
     mode: "development",
-    entry: resolve(__dirname, 'public', 'index.js'),
+    entry: {
+        index: resolve(__dirname, 'public', 'index.js'),
+        app:  resolve(__dirname, 'public', 'app.js'),
+        basic:  resolve(__dirname, 'public', 'basic.js')
+    },
     output: {
         path: resolve(__dirname, '../public'),
-        filename: 'webpack.bundle.js'
+        filename: '[name].bundle.js'
     },
     devServer: {
         contentBase: resolve(__dirname, '../public'), // ???
@@ -26,6 +30,11 @@ const webpackConfig: A  = {
                 target: 'http://localhost:' + configuration.port,
                 secure: false
             }
+        }
+    },
+    resolve: {
+        alias: {
+            vue: 'vue/dist/vue.js'
         }
     }
 };
