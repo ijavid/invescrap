@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import Configuration from "./configuration.interface";
+import Config from "./config";
 
-export function setupDatabase(options: Configuration) {
+export function setupDatabase(options: Config) {
     mongoose.Promise = Promise;
-    return mongoose.connect(options.mongoUrl)
+    return mongoose.connect(options.mongoUrl,{ useNewUrlParser: true })
         .then(() => {
             console.log('Database connection successful', options.mongoUrl);
         })

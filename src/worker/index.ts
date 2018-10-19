@@ -1,11 +1,11 @@
 import * as cron from 'node-cron';
 import updateJob from "./update.job";
-import Configuration from "../configuration.interface";
+import Config from "../config";
 
 export default class Worker {
 
     constructor (
-        private configuration: Configuration
+        private configuration: Config
     ) { }
 
     public runJobs() {
