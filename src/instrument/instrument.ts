@@ -1,5 +1,6 @@
 import * as request from 'request-promise-native';
 import {InstrumentDocument} from './instrument.schema';
+import moment = require("moment");
 
 export function updateInstrumentData(instrument: InstrumentDocument) {
     return requestInstrumentData(instrument.instrument_id).then((data) => {
@@ -27,9 +28,37 @@ export function requestInstrumentData(instrument_id: string) {
     const url = 'https://www.erstemarket.hu/funds/chart/' + instrument_id;
     return request.get(url).then(JSON.parse).then((data) => {
         data.series = parseSeries(data.series);
-        return data;
+        return getLatestPageData(data.isin).then((lastValue) => {
+            if(data.series[data.series.length - 1].date !== lastValue.date) {
+                data.series.push(lastValue);
+            }
+            return data;
+        });
     })
+}
 
+export function getLatestPageData(isin: string) {
+    const url = 'https://www.erstemarket.hu/befektetesi_alapok/alap/' + isin;
+    return request.get(url).then((data) => {
+        const lastPriceRegexp = /<span.*_last_price .*stream="([0-9.]*).*title="([A-Z]{3})".*<\/span>/;
+        const lastPriceTimeRegexp = /<span.*_last_price_time .*stream="([0-9.]*).*<\/span>/;
+        const lastPrice = lastPriceRegexp.exec(data);
+        const lastPriceTime = lastPriceTimeRegexp.exec(data);
+
+        if(lastPrice) {
+            const result = {
+                date: parseFloat(lastPriceTime[1]) * 1000,
+                value: parseFloat(lastPrice[1]),
+                currency: lastPrice[2]
+            };
+            const date = moment(result.date).format('YYYY-MM-DD');
+            return {
+                date,
+                value: result.value,
+                i: result.date
+            }
+        }
+    })
 }
 
 
