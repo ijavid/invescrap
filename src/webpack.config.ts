@@ -15,7 +15,7 @@ const webpackConfig: A  = {
     entry: {
         index: resolve(__dirname, 'public', 'index.js'),
         app:  resolve(__dirname, 'public', 'app.js'),
-        basic:  resolve(__dirname, 'public', 'basic.js')
+        portfolio:  resolve(__dirname, 'public', 'portfolio.js')
     },
     output: {
         path: resolve(__dirname, '../public'),

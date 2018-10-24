@@ -12,10 +12,12 @@
     <span class="loading">Loading...</span>
 </div>
 
-<svg id="chart"></svg>
+<svg id="chart">
+    <text class="loading" x="60" y="40">Loading...</text>
+</svg>
 
 <script type="text/html" id="positionsTemplate">
-    <table>
+    <table width="1000">
         <tbody>
             <% _.forEach(positions, function(p) { %>
             <tr>
@@ -37,6 +39,6 @@
     </table>
 </script>
 
-<script src="basic.bundle.js"></script>
+<script src="portfolio.bundle.js"></script>
 </body>
 </html>

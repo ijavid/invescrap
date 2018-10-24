@@ -33,12 +33,13 @@ export interface PerformanceData extends Position {
 export interface Series {
     currentValue: PerformanceData;
     values?: Array<PerformanceData>;
-    data?: Array<{
-        date: number,
-        value: number
-    }>;
+    data?: Array<GraphValue>;
 }
 
+export interface GraphValue {
+    date: number,
+    value: number
+}
 
 class CurrencyExchanger {
     private values: {[key: string]: Array<CurrencyExchangeRate>} = {};
@@ -108,7 +109,9 @@ export default class PositionResource extends ResourceBase {
                         values.push(perf);
                         data.push({
                             date: Date.parse(value.date),
-                            value: perf.netpl
+                            value: perf.netpl,
+                            // value: (perf.netpl / perf.startValue)
+
                         })
                     }
                 }

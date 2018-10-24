@@ -1,9 +1,9 @@
 import $ from 'jquery';
 import * as _ from 'lodash';
-import {Position} from "../position/position.interface";
-import {PerformanceData, Series} from "../routes/position.resource";
+import {GraphValue, PerformanceData, Series} from "../routes/position.resource";
 
 import * as d3 from 'd3';
+import {ScaleTime} from "d3";
 
 let positionsTemplate = _.template($('#positionsTemplate').html());
 
@@ -26,6 +26,8 @@ $.getJSON('api/position/',  {}, (positions: Array<PerformanceData>) => {
 
 $.getJSON('api/position/values/', {}, (result: Array<Series>) => {
 
+
+
     let data = result[0].data; // todo
 
     const mm = result.reduce(({ min, max }, { data }) => {
@@ -38,8 +40,8 @@ $.getJSON('api/position/values/', {}, (result: Array<Series>) => {
     const margin = {top: 20, right: 30, bottom: 30, left: 60};
     const height = 500;
     const width = 1000;
-    const x =  d3.scaleTime()
-        .domain(d3.extent(data, d => d.date))
+    const x: ScaleTime<number, number> =  d3.scaleTime()
+        .domain(d3.extent(data, (d: GraphValue) => d.date))
         .range([margin.left, width - margin.right]);
 
     // console.log(data, x);
@@ -48,24 +50,24 @@ $.getJSON('api/position/values/', {}, (result: Array<Series>) => {
         .domain([mm.min, mm.max]).nice()
         .range([height - margin.bottom, margin.top]);
 
-    const xAxis = g => g
+    const xAxis = (g: any) => g
         .attr("transform", `translate(0,${height - margin.bottom})`)
         .call(d3.axisBottom(x).ticks(width / 80).tickSizeOuter(0));
 
-    const yAxis = g => g
+    const yAxis = (g: any)=> g
         .attr("transform", `translate(${margin.left},0)`)
         .call(d3.axisLeft(y))
-        .call(g => g.select(".domain").remove())
-        .call(g => g.select(".tick:last-of-type text").clone()
+        .call((g: any) => g.select(".domain").remove())
+        .call((g: any) => g.select(".tick:last-of-type text").clone()
             .attr("x", 3)
             .attr("text-anchor", "start")
             .attr("font-weight", "bold")
             .text('Title'));
 
-    const line = d3.line()
-        .defined(d => !isNaN(d.value))
-        .x(d => x(d.date))
-        .y(d => y(d.value));
+    const line = d3.line<GraphValue>()
+        .defined((d: GraphValue) => !isNaN(d.value))
+        .x((d: GraphValue) => x(d.date))
+        .y((d: GraphValue) => y(d.value));
 
     const svg = d3.select('#chart')
         .attr("width", width)
@@ -91,6 +93,8 @@ $.getJSON('api/position/values/', {}, (result: Array<Series>) => {
             .attr("d", line);
 
     });
+
+    svg.select('.loading').remove();
 
 
 });

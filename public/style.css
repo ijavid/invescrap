@@ -9,3 +9,12 @@ body {
 #content > span.loading {
     font-size: 1.5em;
 }
+
+table {
+    border-collapse: collapse;
+}
+table td {
+    border: 1px solid lightblue;
+    margin: 0;
+    padding: 0.2em;
+}

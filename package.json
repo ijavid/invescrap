@@ -9,8 +9,8 @@
     "run": "src/index.js",
     "serve": "webpack-dev-server --config src/webpack.config.js",
     "watch": "tsc -w",
-    "build-docker": "tsc --outDir ./dist && webpack ./dist/public/index.js ./dist/public/basic.js -o ./public/webpack.bundle.js --mode development",
-    "build-docker-prod": "tsc --outDir ./dist && webpack ./dist/public/index.js  -o ./public/webpack.bundle.js --mode production"
+    "build-docker": "tsc --outDir ./dist && webpack --config dist/webpack.config.js",
+    "build-docker-prod": "tsc --outDir ./dist && webpack --config dist/webpack.config.js --mode production"
   },
   "author": "",
   "license": "ISC",
