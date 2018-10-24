@@ -41,8 +41,14 @@ export default class Server {
         const path = this.routeNamespace + route.path;
         console.log(`Registering route ${route.method.toUpperCase()}\t${path}\t'${route.handler.name}'`);
         this.app.use(path, (req, res, done) => {
-            const handler = this.routeWrapper(route.handler);
-            return (req.method.toLowerCase() === route.method.toLowerCase()) ? handler(req, res, done) : done();
+            // console.log('checking', path, req.path, req.url);
+            if (req.method.toLowerCase() === route.method.toLowerCase() &&
+                req.path === '/' || req.path === '') {
+                const handler = this.routeWrapper(route.handler);
+                return handler(req, res, done);
+            }
+
+            return done();
         });
     }
 

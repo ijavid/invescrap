@@ -61,7 +61,7 @@ function route(path: string, method = 'get') {
         // console.log(descriptor);
 
         //descriptor;
-        descriptor.value = descriptor.value.bind(target);
+        descriptor.value = descriptor.value.bind(classConstructor);
 
         return descriptor;
     }
