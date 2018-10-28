@@ -1,6 +1,6 @@
 # ESPA Stock Techno HUF R01
 
-POST https://crap.ijavid.eu/position
+POST http://xxx.ijavid.eu:8300/position
 Content-Type: application/json
 
 {
@@ -13,7 +13,7 @@ Content-Type: application/json
 
 ###
 
-POST http://crap.ijavid.eu:8300/position
+POST http://xxx.ijavid.eu:8300/position
 Content-Type: application/json
 
  {
@@ -27,7 +27,7 @@ Content-Type: application/json
 ###
 
 
-POST http://crap.ijavid.eu:8300/position
+POST http://xxx.ijavid.eu:8300/position
 Content-Type: application/json
 
    {
@@ -40,7 +40,7 @@ Content-Type: application/json
 
 ###
 
-POST http://crap.ijavid.eu:8300/position
+POST http://xxx.ijavid.eu:8300/position
 Content-Type: application/json
 
    {
@@ -55,7 +55,7 @@ Content-Type: application/json
 
 ###
 
-POST http://crap.ijavid.eu:8300/position
+POST http://xxx.ijavid.eu:8300/position
 Content-Type: application/json
 
    {

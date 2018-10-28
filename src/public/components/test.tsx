@@ -8,7 +8,7 @@ export class Test extends React.Component {
                 <ul>
                     <li>axx</li>
                     <li>bxx</li>
-                    <li>c</li>
+                    <li>cxcx</li>
                 </ul>
             </div>
         );
