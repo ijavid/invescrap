@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "run": "src/index.js",
+    "run": "node src/index.js",
     "serve": "webpack-dev-server --config src/webpack.config.js",
     "watch": "tsc -w",
     "build-docker": "tsc --outDir ./dist && webpack --config dist/webpack.config.js",

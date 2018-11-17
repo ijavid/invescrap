@@ -26,15 +26,17 @@ export function parseSeries(series: string) {
 
 export function requestInstrumentData(instrument_id: string) {
     const url = 'https://www.erstemarket.hu/funds/chart/' + instrument_id;
-    return request.get(url).then(JSON.parse).then((data) => {
-        data.series = parseSeries(data.series);
-        return getLatestPageData(data.isin).then((lastValue) => {
-            if(data.series[data.series.length - 1].date !== lastValue.date) {
-                data.series.push(lastValue);
-            }
-            return data;
-        });
-    })
+    return request
+        .get(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' }})
+        .then(JSON.parse).then((data) => {
+            data.series = parseSeries(data.series);
+            return getLatestPageData(data.isin).then((lastValue) => {
+                if(data.series[data.series.length - 1].date !== lastValue.date) {
+                    data.series.push(lastValue);
+                }
+                return data;
+            });
+        })
 }
 
 export function getLatestPageData(isin: string) {
