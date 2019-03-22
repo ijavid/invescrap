@@ -39,6 +39,7 @@ export interface Series {
 export interface GraphValue {
     date: number,
     value: number
+    perf: number
 }
 
 class CurrencyExchanger {
@@ -107,11 +108,10 @@ export default class PositionResource extends ResourceBase {
                     if(value) {
                         const perf = await this.calculatePerformance(p, startValue, value);
                         values.push(perf);
-                        data.push({
+                        data.push(<GraphValue> {
                             date: Date.parse(value.date),
                             value: perf.netpl,
-                            // value: (perf.netpl / perf.startValue)
-
+                            perf: (perf.netpl / perf.startValue * 100)
                         })
                     }
                 }
@@ -145,6 +145,7 @@ export default class PositionResource extends ResourceBase {
         if (pos.currency !== 'HUF') {
             const rate = await this.exchanger.get(currentValue.date, pos.currency);
             if (rate) {
+                pos.startValue = pos.startValue * rate.value;
                 pos.currentValue = pos.currentValue * rate.value;
                 pos.netpl = pos.netpl * rate.value;
                 pos.currency = 'HUF';

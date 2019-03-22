@@ -15,8 +15,9 @@ export default class Worker {
     }
 
     public start() {
-        // every hour at 0 min
-        cron.schedule('0 * * * *', () => {
+        // every hour at 0 min -- '0 * * * *'
+        // at 23 hour at 0 min -- '0 * * * *'
+        cron.schedule('0 23 * * *', () => {
             console.log('running a scheduled task');
             this.runJobs();
         });

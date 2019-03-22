@@ -5,21 +5,21 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
-POST http://localhost:3000/api/instrument?id=12345
+POST http://localhost:8300/api/instrument?id=12345
 Content-Type: application/json
 
 { "instrument_id": "2592" }
 
 ###
 
-POST http://localhost:3000/api/instrument?id=12345
+POST http://localhost:8300/api/instrument?id=12345
 Content-Type: application/json
 
 { "instrument_id": "2582" }
 
 ###
 
-POST http://localhost:3000/api/instrument?id=12345
+POST http://localhost:8300/api/instrument?id=12345
 Content-Type: application/json
 
 { "instrument_id": "112" }

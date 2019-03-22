@@ -12,5 +12,23 @@
 
 GET https://www.erstemarket.hu/funds/chart/2592
 Accepts: application/json
+X-Requested-With: XMLHttpRequest
+
+###
+
+
+
+GET https://www.erstemarket.hu/instruments/chart/17?_=1542428913233 HTTP/1.1
+Host: www.erstemarket.hu
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+Accept: */*
+X-Requested-With: XMLHttpRequest
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36
+#Referer: https://www.erstemarket.hu/
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+#Cookie: _ga=GA1.2.1982187171.1542328144; _gid=GA1.2.83767531.1542428497; EMSession=jrnf1dug9hscf24olhv6b1iah1
 
 ###
