@@ -10,7 +10,7 @@ const PositionSchema = new mongoose.Schema({
         ref: 'Instrument'
     },
     value: Number,
-    date: Date,
+    date: String,
     cost: Number,
     currency: String
 });
