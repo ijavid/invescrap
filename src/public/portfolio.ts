@@ -79,14 +79,17 @@ $.getJSON('api/position/values/', {}, (result: Array<Series>) => {
     svg.append("g")
         .call(yAxis);
 
-    result.forEach((item) => {
+
+    const colors = ['steelblue', 'teal', 'seagreen', 'slategrey', 'green', 'blue', 'gray'];
+
+    result.forEach((item, i) => {
 
         const data = item.data;
 
         svg.append("path")
             .datum(data)
             .attr("fill", "none")
-            .attr("stroke", "steelblue")
+            .attr("stroke", colors[i])
             .attr("stroke-width", 1.5)
             .attr("stroke-linejoin", "round")
             .attr("stroke-linecap", "round")
