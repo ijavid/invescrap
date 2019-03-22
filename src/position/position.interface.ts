@@ -5,7 +5,7 @@ export interface Position extends MongooseDocumentOptionals {
     instrument_id?: string,
     instrument?: Instrument,
     value: number;
-    date: Date,
+    date: string,
     cost: number;
     currency: string;
 }

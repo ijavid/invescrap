@@ -77,7 +77,8 @@ export default class PositionResource extends ResourceBase {
         this.exchanger.reset();
         return PositionModel.find().populate('instrument').exec().then((positions: Array<Position>) => {
             return Promise.all(positions.map(async (p: Position) => {
-                const buyDate = moment(p.date).format('YYYY-MM-DD');
+                const date = Date.parse(p.date);
+                const buyDate = moment(isNaN(date) ? p.date : date).format('YYYY-MM-DD');
                 const startValue = _.find(p.instrument.series, {date: buyDate}) || {value: 0, date: ''};
                 const currentValue = this.getLastCloseValue(p.instrument.series);
                 const pos = await this.calculatePerformance(p, startValue, currentValue);
@@ -93,7 +94,8 @@ export default class PositionResource extends ResourceBase {
 
         return PositionModel.find().populate('instrument').exec().then((positions: Array<Position>) => {
             return Promise.all(positions.map(async (p: Position) => {
-                const buyDate = moment(p.date).format('YYYY-MM-DD');
+                const date = Date.parse(p.date);
+                const buyDate = moment(isNaN(date) ? p.date : date).format('YYYY-MM-DD');
                 const startValue = _.find(p.instrument.series, {date: buyDate}) || {value: 0, date: ''};
 
                 const current = this.getLastCloseValue(p.instrument.series);
@@ -101,7 +103,7 @@ export default class PositionResource extends ResourceBase {
 
                 const values = [];
                 const data = [];
-                for (let m = moment(p.date); m.isBefore(moment(current.date)); m.add(resolution, 'days')) {
+                for (let m = moment(buyDate); m.isBefore(moment(current.date)); m.add(resolution, 'days')) {
                     const date = m.format('YYYY-MM-DD');
                     // dates.push(date);
                     const value = <InstrumentData> _.find(p.instrument.series, {date});
