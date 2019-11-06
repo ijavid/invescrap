@@ -1,0 +1,19 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8   # (1)
+  
+    steps:
+      - checkout
+      # ... steps for building/testing app ...
+
+      - setup_remote_docker:   # (2)
+          docker_layer_caching: true # (3)
+
+      # build and push Docker image
+      - run: |
+          TAG=0.1.$CIRCLE_BUILD_NUM
+          docker build -t ijavid/invescrap:$TAG .     
+  #        docker login -u $DOCKER_USER -p $DOCKER_PASS         # (4)
+#          docker push CircleCI-Public/circleci-demo-docker:$TAG
